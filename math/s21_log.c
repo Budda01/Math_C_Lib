@@ -1,31 +1,27 @@
 #include "s21_math.h"
 
-
-long double s21_log(double x){
-
-    long double sum = 0.0;
-    long double numin = 0.0;
-    int count = 0;
-
-    if(x < 1.0 && x > 0.0){
-        numin = (x-1);
-        count = 1;
+long double s21_log(double x) {
+  long double res = 0.0;
+  int count = 1;
+  double r = 1.5;
+  if (x == INF_VAL)
+    res = INF_VAL;
+  else if (x == (-1) * INF_VAL || x < 0)
+    res = NAN_VAL;
+  else if (x == 0.0)
+    res = (-1) * INF_VAL;
+  else if (x > r) {
+    long double n = x;
+    while (n > r){
+      n = n / r;
+      count++;
     }
-    else{
-        numin = ((x-1)/(x+1)); 
-        count = 2;
+    for (int i = 1; i <count; i++){
+      res += logSeriesExpansion(r);
     }
-
-    for (int n = 1; n <= 1000; n +=count){
-        long double prod = 1.0;
-        for (int i = 1; i <= n; i++){
-            prod *= numin;
-        }
-        if (n % 2 == 1 && x < 1){
-            prod = (-1)*prod;
-        }
-        sum += (prod/n);
-    }
-    return x < 1 ? (-1)*sum : 2*sum;
+    res += logSeriesExpansion(n); 
+  } else if (x > 0.0) {
+    res = logSeriesExpansion(x);
+  }
+  return res;
 }
-
