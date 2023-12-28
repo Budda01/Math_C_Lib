@@ -14,13 +14,12 @@ long double s21_floor(double x) {
     fracPart = x - (long long)x;
     if (x >= 0) {
       res = x - fracPart;
-    } else{
-      if (fracPart == 0.0){
+    } else {
+      if (fracPart == 0.0) {
         res = x;
-      }
-      else
+      } else
         res = x - fracPart - 1;
-      }
+    }
   }
   return res;
 }

@@ -2,9 +2,8 @@
 
 long double s21_ceil(double x) {
   long double fracPartX = 0.0;
-  if (x < MAX_VAL){
-    fracPartX = (x - (long long)x);
+  if (x < MAX_VAL) {
+    fracPartX = (x - s21_floor(x));
   }
   return (fracPartX > 0.0 ? x - fracPartX + 1 : x);
 }
-

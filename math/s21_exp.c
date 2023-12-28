@@ -20,7 +20,10 @@ long double s21_exp(double x) {
       res *= expSeriesExpansion(fracPart);
     }
     if (check == 1) res = 1 / res;
-  } else
+  } else if (x > MAX_LOG_VAL) {
     res = INF_VAL;
+  } else {
+    res = NAN_VAL;
+  }
   return res;
 }
